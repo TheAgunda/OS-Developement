@@ -1,40 +1,30 @@
-mov ah, 0x0e
-mov al, 'H'
+[org 0x7c00] ;Origin, tell the assembler that where the code will be in memory after it is loaded
+mov bp, 0x7c00
+mov sp, bp
 
-int 0x10 ;shorthand for BIOS interrupt call 
-;print in bios 
-
-mov al, 'E'
-int 0x10 
+mov bx, TestString
+call PrintString
 
 
-mov al, 'L'
-int 0x10 
-
-mov al, 'L'
-int 0x10 
-
-mov al, '0'
-int 0x10 
-
-mov al, ' '
-int 0x10 
-
-mov al, 'W'
-int 0x10 
-
-mov al, 'O'
-int 0x10 
-
-mov al, 'R'
-int 0x10
-
-mov al, 'L'
-int 0x10 
-
-mov al, 'D'
-int 0x10 
 
 jmp $
-times 510-($-$$) db 0
-dw 0xaa55
+
+;function
+PrintString:
+    mov ah, 0x0e ;magic value
+    .for:
+    cmp [bx], byte 0
+    je .exit
+        mov al, [bx]
+        int 0x10
+        inc bx  
+        jmp .for
+    .exit:
+    ret
+
+;label string 
+TestString:
+    db 'Welcome to Agunda OS....', 0    ;Operating System
+
+times 510-($-$$) db 0   ;Fill the rest of sector with 0
+dw 0xaa55  ;Add boot signature at the end of bootloader
