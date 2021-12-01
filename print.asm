@@ -16,5 +16,5 @@ PrintString:
     ret
 
 ;label string 
-TestString:
-    db 'Welcome to Agunda OS....', 0    ;Operating System
+; TestString:
+;     db 'Welcome to Agunda OS....', 0    ;Operating System

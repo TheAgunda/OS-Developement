@@ -4,11 +4,16 @@ mov [BOOT_DISK] , dl
 mov bp, 0x7c00
 mov sp, bp
 
-mov bx, TestString
-call PrintString
+; mov bx, TestString
+; call PrintString
+
 call READ_DISK
 
-jmp $
+; mov ah, 0x0e
+; mov al, [PROGRAM_SPACE]
+; int 0x10
+
+jmp PROGRAM_SPACE
 
 %include "print.asm" ;include file
 %include "DiskRead.asm";include file

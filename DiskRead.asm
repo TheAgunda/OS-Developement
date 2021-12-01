@@ -3,6 +3,7 @@ PROGRAM_SPACE equ 0x7e00
 
 ;function
 READ_DISK:
+    mov ah, 0x02
     mov bx, PROGRAM_SPACE
     mov al, 4
     mov dl, [BOOT_DISK]
